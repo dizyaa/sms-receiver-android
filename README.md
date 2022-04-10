@@ -1,4 +1,3 @@
 # SMS receiver
 
-Приложение написано на коленке за 20-30 минут.
-Основная задача: получить входящие СМС с устройства и отправить в чат Telegram.
+Receive SMS from your Android smartphone and send to Telegram chat.
