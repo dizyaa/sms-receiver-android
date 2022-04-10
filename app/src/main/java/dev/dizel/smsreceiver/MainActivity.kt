@@ -4,6 +4,9 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,14 +20,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun sendStartUpMessage() {
-        val model = Build.MODEL
-        val message = "Запущено устройство $model"
-        TelegramActions().sendMessage(message)
+        sendMessage("Starting ${Build.MODEL}")
     }
 
     private fun sendTestMessage() {
-        val model = Build.MODEL
-        val message = "Тестовое сообщение с $model"
-        TelegramActions().sendMessage(message)
+        sendMessage("Test message from ${Build.MODEL}")
+    }
+
+    private fun sendMessage(text: String) {
+        val message = Message(
+            chatId = BuildConfig.TELEGRAM_USER_ID,
+            text = text
+        )
+
+        lifecycleScope.launch {
+            RetrofitBuilder.apiService.sendMessage(message)
+        }
     }
 }

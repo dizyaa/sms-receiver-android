@@ -6,7 +6,7 @@ import retrofit2.http.POST
 
 interface TelegramApi {
     @POST("sendMessage")
-    fun sendMessage(
+    suspend fun sendMessage(
         @Body body: Message
-    ): Call<Message>
+    ): Message
 }
