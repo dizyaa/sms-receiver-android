@@ -1,5 +1,6 @@
 package dev.dizel.smsreceiver
 
+import android.Manifest
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,9 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
+
+    private val requestPermissionCode = 103
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -17,6 +21,13 @@ class MainActivity : AppCompatActivity() {
         findViewById<Button>(R.id.vTestButton).setOnClickListener {
             sendTestMessage()
         }
+
+        requestPermissions(
+            arrayOf(
+                Manifest.permission.READ_SMS,
+                Manifest.permission.RECEIVE_SMS,
+            ), requestPermissionCode
+        )
     }
 
     private fun sendStartUpMessage() {
