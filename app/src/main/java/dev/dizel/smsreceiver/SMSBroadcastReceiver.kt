@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.provider.Telephony
 import android.telephony.SmsMessage
+import android.util.Log
 import kotlinx.coroutines.runBlocking
 
 
@@ -40,7 +41,11 @@ class MySMSBroadcastReceiver : BroadcastReceiver() {
                 text = text
             )
 
-            RetrofitBuilder.apiService.sendMessage(token, body)
+            try {
+                RetrofitBuilder.apiService.sendMessage(token, body)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
         }
     }
 }

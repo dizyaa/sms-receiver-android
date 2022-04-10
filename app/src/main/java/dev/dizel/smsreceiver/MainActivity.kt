@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
+import java.lang.Exception
 
 class MainActivity : AppCompatActivity() {
 
@@ -71,7 +72,11 @@ class MainActivity : AppCompatActivity() {
         )
 
         lifecycleScope.launch {
-            RetrofitBuilder.apiService.sendMessage(token, message)
+            try {
+                RetrofitBuilder.apiService.sendMessage(token, message)
+            } catch (ex: Exception) {
+                ex.printStackTrace()
+            }
         }
     }
 }
