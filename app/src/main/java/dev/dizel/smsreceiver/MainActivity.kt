@@ -73,7 +73,7 @@ class MainActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             try {
-                RetrofitBuilder.apiService.sendMessage(token, message)
+                RetrofitBuilder(token).apiService.sendMessage(message)
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }

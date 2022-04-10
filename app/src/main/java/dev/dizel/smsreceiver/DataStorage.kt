@@ -8,7 +8,7 @@ class DataStorage(context: Context) {
     fun saveUserId(userId: String) {
         sharedPreferences.edit()
             .putString("USER_ID", userId)
-            .apply()
+            .commit()
     }
 
     fun getUserId(): String? {
@@ -18,7 +18,7 @@ class DataStorage(context: Context) {
     fun saveToken(token: String) {
         sharedPreferences.edit()
             .putString("TOKEN", token)
-            .apply()
+            .commit()
     }
 
     fun getToken(): String? {

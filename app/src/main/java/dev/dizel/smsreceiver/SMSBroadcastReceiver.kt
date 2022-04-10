@@ -13,7 +13,7 @@ import kotlinx.coroutines.runBlocking
 class MySMSBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent) {
-        if (intent.action !== Telephony.Sms.Intents.SMS_RECEIVED_ACTION) return
+        if (intent.action != Telephony.Sms.Intents.SMS_RECEIVED_ACTION) return
         if (context == null) return
         val bundle = intent.extras ?: return
 
@@ -42,7 +42,7 @@ class MySMSBroadcastReceiver : BroadcastReceiver() {
             )
 
             try {
-                RetrofitBuilder.apiService.sendMessage(token, body)
+                RetrofitBuilder(token).apiService.sendMessage(body)
             } catch (ex: Exception) {
                 ex.printStackTrace()
             }
