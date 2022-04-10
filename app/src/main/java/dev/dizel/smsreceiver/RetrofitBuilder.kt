@@ -6,7 +6,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 object RetrofitBuilder {
 
     private val retrofit = Retrofit.Builder()
-        .baseUrl("${BuildConfig.TELEGRAM_BASE_URL}${BuildConfig.TELEGRAM_BOT_TOKEN}/")
+        .baseUrl(BuildConfig.TELEGRAM_BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
 

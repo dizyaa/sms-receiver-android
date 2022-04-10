@@ -13,6 +13,7 @@ class MySMSBroadcastReceiver : BroadcastReceiver() {
 
     override fun onReceive(context: Context?, intent: Intent) {
         if (intent.action !== Telephony.Sms.Intents.SMS_RECEIVED_ACTION) return
+        if (context == null) return
         val bundle = intent.extras ?: return
 
         val pdus = bundle["pdus"] as Array<*>?
@@ -29,13 +30,17 @@ class MySMSBroadcastReceiver : BroadcastReceiver() {
             text += "<---->\n"
         }
 
+        val storage = DataStorage(context)
+        val token = storage.getToken() ?: return
+        val userId = storage.getUserId() ?: return
+
         runBlocking {
             val body = Message(
-                chatId = BuildConfig.TELEGRAM_USER_ID,
+                chatId = userId,
                 text = text
             )
 
-            RetrofitBuilder.apiService.sendMessage(body)
+            RetrofitBuilder.apiService.sendMessage(token, body)
         }
     }
 }

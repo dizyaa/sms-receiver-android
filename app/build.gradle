@@ -16,8 +16,6 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField "String", "TELEGRAM_BASE_URL", TELEGRAM_BASE_URL
-        buildConfigField "String", "TELEGRAM_BOT_TOKEN", TELEGRAM_BOT_TOKEN
-        buildConfigField "String", "TELEGRAM_USER_ID", TELEGRAM_USER_ID
     }
 
     buildTypes {
