@@ -25,20 +25,22 @@ class MySMSBroadcastReceiver : BroadcastReceiver() {
 
         pdus.indices.forEachIndexed { index, _ ->
             messages[index] = SmsMessage.createFromPdu(pdus[index] as ByteArray, format)
-            text += "ICC: ${messages[index]!!.indexOnIcc}\n"
-            text += "From: ${messages[index]!!.originatingAddress}\n"
-            text += "Text: ${messages[index]!!.messageBody}\n"
-            text += "<---->\n"
+            text += messages[index]!!.messageBody
         }
 
         val storage = DataStorage(context)
         val token = storage.getToken() ?: return
         val userId = storage.getUserId() ?: return
 
+        var messageBody = ""
+        messageBody += "ICC: ${messages[0]!!.indexOnIcc}\n"
+        messageBody += "From: ${messages[0]!!.originatingAddress}\n"
+        messageBody += "Text: $text"
+
         runBlocking {
             val body = Message(
                 chatId = userId,
-                text = text
+                text = messageBody
             )
 
             try {
